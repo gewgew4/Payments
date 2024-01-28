@@ -2,7 +2,7 @@
 
 namespace Payments.Domain.Entities
 {
-    public class Authorization
+    public class Authorization : BaseEntity<Authorization>
     {
         public DateTime? AuthorizationDate { get; set; }
         public AuthorizationType AuthorizationType { get; set; }

@@ -1,3 +1,4 @@
+using Payments.Infrastructure;
 
 namespace Payments.Presentacion
 {
@@ -14,6 +15,9 @@ namespace Payments.Presentacion
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Configurators
+            builder.Services.InfrastructureConfigureServices(builder.Configuration);
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,7 +30,6 @@ namespace Payments.Presentacion
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
