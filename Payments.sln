@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.Application", "Pay
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.UnitTests", "Payments.UnitTests\Payments.UnitTests.csproj", "{70A3A353-35F8-4990-9C03-B72515195AD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalProcessor", "ExternalProcessor\ExternalProcessor.csproj", "{9B6A3D04-37B2-4DCC-91A9-C9A4409F8E9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{70A3A353-35F8-4990-9C03-B72515195AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70A3A353-35F8-4990-9C03-B72515195AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70A3A353-35F8-4990-9C03-B72515195AD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6A3D04-37B2-4DCC-91A9-C9A4409F8E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6A3D04-37B2-4DCC-91A9-C9A4409F8E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6A3D04-37B2-4DCC-91A9-C9A4409F8E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6A3D04-37B2-4DCC-91A9-C9A4409F8E9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
