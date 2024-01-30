@@ -1,4 +1,7 @@
 
+using EasyCronJob.Core;
+using ExternalProcessor.Services;
+
 namespace ExternalProcessor
 {
     public class Program
@@ -13,6 +16,14 @@ namespace ExternalProcessor
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // CronJob
+            builder.Services.ApplyResulation<CronJob>(options =>
+            {
+                options.CronExpression = "*/10 * * * * *";
+                options.TimeZoneInfo = TimeZoneInfo.Local;
+                options.CronFormat = Cronos.CronFormat.IncludeSeconds;
+            });
 
             var app = builder.Build();
 
