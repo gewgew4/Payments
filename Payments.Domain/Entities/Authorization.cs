@@ -8,9 +8,11 @@ namespace Payments.Domain.Entities
         public AuthorizationType AuthorizationType { get; set; }
         public Guid ClientId { get; set; }
         public ClientType ClientType { get; set; }
-        public DateTime CreationDate { get; }
-        public bool IsAuthorized { get; set; }
+        public DateTime? ConfirmationDate { get; set; }
+        public DateTime CreationDate { get; set; }
+        public bool? IsAuthorized { get; set; }
         public bool? IsConfirmed { get; set; }
+        public string? Observations { get; set; }
         public decimal Total { get; set; }
     }
 }

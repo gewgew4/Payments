@@ -31,24 +31,6 @@ namespace Payments.Infrastructure.Repositories
             return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate, bool tracking = true, params string[] includeProperties)
-        {
-            IQueryable<T> query = _dbSet;
-
-            if (predicate != null)
-                query = query.Where(predicate);
-
-            if (!tracking)
-                query = query.AsNoTracking();
-
-            foreach (var includeProperty in includeProperties)
-            {
-                query = query.Include(includeProperty);
-            }
-
-            return await query.FirstOrDefaultAsync(predicate);
-        }
-
         public async Task<T> Add(T entity)
         {
             await _dbSet.AddAsync(entity);

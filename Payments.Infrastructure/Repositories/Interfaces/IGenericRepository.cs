@@ -35,6 +35,14 @@ namespace Payments.Infrastructure.Repositories.Interfaces
                                       int? skip = null,
                                       params string[] includeProperties);
         /// <summary>
+        /// Get a single entity from the repository
+        /// </summary>
+        /// <param name="id">Entity's id to be searched</param>
+        /// <param name="tracking">If ORM should track changes</param>
+        /// <param name="includeProperties">Include nested/complex fields from the entity</param>
+        /// <returns></returns>
+        Task<T> GetById(Guid id, bool tracking = true, params string[] includeProperties);
+        /// <summary>
         /// Deletes an entity from the repository
         /// </summary>
         /// <param name="id">Entity's id to be removed</param>
