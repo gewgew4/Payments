@@ -1,6 +1,6 @@
 namespace ExternalProcessor.Models
 {
-    public class AutorizationRequest
+    public class ExternalRequest
     {
         public Guid Id { get; set; }
         public decimal Total { get; set; }

@@ -6,20 +6,21 @@ namespace ExternalProcessor.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AutorizationController(ILogger<AutorizationController> logger) : ControllerBase
+    public class ExternalController(ILogger<ExternalController> logger) : ControllerBase
     {
-        private readonly ILogger<AutorizationController> _logger = logger;
+        private readonly ILogger<ExternalController> _logger = logger;
 
-        [HttpPost(Name = "Autorize")]
-        public AutorizationResponse Get(AutorizationRequest request)
+        [HttpPost]
+        public ExternalResponse Post(ExternalRequest request)
         {
             _logger.LogInformation($"{request.Id} has requested approval");
-
-            return new AutorizationResponse
+            var x = new ExternalResponse
             {
                 Id = request.Id,
                 IsAutorized = ApplicationHelper.IsInteger(request.Total)
             };
+
+            return x;
         }
     }
 }
