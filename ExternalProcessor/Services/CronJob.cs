@@ -45,7 +45,7 @@ namespace ExternalProcessor.Services
                                 ClientType = 2 and
                                 getutcdate() > dateadd(minute, 5, CreationDate)";
 
-            using (var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=payments;Integrated Security=True;Connect Timeout=30"))
+            using (var connection = new SqlConnection($"Server=host.docker.internal,1433;Database=payments;Integrated security=False;User Id=sa;Password=123456;MultipleActiveResultSets=true;TrustServerCertificate=True"))
             {
                 connection.Execute(sql);
             }

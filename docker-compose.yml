@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  payments.presentacion:
+    image: ${DOCKER_REGISTRY-}paymentspresentacion
+    build:
+      context: .
+      dockerfile: Payments.Presentacion/Dockerfile
+
+  externalprocessor:
+    image: ${DOCKER_REGISTRY-}externalprocessor
+    build:
+      context: .
+      dockerfile: ExternalProcessor/Dockerfile
+
