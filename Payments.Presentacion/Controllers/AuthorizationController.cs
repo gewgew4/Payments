@@ -44,9 +44,9 @@ namespace Payments.Presentacion.Controllers
         }
 
         [HttpGet("Approved")]
-        public async Task<ActionResult<List<AuthorizationDto>>> GetApproveduthorizations()
+        public async Task<ActionResult<List<ApprovedAuthorizationDto>>> GetApproveduthorizations()
         {
-            var result = await _authorizationService.GetAuthorizations();
+            var result = await _authorizationService.GetApprovedAuthorizations();
 
             if (!result.Success)
                 return WebApiResponse.GetErrorResponse(result);
@@ -66,7 +66,10 @@ namespace Payments.Presentacion.Controllers
         }
 
 #if DEBUG
-        // Only available for debugging purposes
+        /// <summary>
+        /// Only available for debugging purposes.
+        /// Done by cronjob at ExternalProcessor
+        /// </summary>
         [HttpPatch]
         public async Task<ActionResult<List<AuthorizationDto>>> Patch()
         {
