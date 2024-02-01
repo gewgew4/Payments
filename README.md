@@ -4,7 +4,25 @@
 This is a PoC repo that follows a given set of specifications for a payment service and an external service.
 
 ## Specifications
-WIP
+A payments authorization solution is required for our clients.
+
+The solution will contain a public API which will be consumed by our clients where we will receive an authorization request and we'll respond according to the response of a third-party payment processor (simulated).
+
+The payment processor will be an independent service that simply will respond that a authorization is approved when the total amount is an integer value and denied when the total has decimals.
+
+Authorizations may be for a *charge*, *return* or *reversal*.
+
+Depending on the client, there may be different authorization models:
+- First: authorization request
+- Second: authorization request followed by a confirmation
+
+For clients on the second model, an action should be performed so that a reversal authorization is generated if it is not confirmed within the first five minutes.
+
+All authorizations should be registered with their status and relevant information.
+
+Additionally, we should keep another registration including only approved authorizations (necessary for feeding internal reporting). This registry may only be a simple table containing dates, totals and clients. This should be asynchronous so that the authorization process is not interfered with.
+
+Since this is a PoC, we can assume all clients are already registered and authentication is already managed.
 
 ## Install instructions for Docker
 
@@ -44,9 +62,9 @@ We are using a SQL Server database, see https://www.microsoft.com/en-us/sql-serv
 Remember the instance should have TCP enabled and with a listening port (default is 1433)
 
 This can be set via the SQL Server 20XX Configuration Manager:
-1. Open SQL Server Network Configuration
-2. Double click on TCP/IP to open Properties
-3. Check that Enabled and Listen All are Yes
-4. And on IP Addresses tab, below at IPAll section, check that TCP Port is set to 1433 (default)
+1. Open *SQL Server Network Configuration*
+2. Double click on *TCP/IP* to open *Properties*
+3. Check that *Enabled* and *Listen All* are set to *Yes*
+4. And on *IP Addresses* tab, below at *IPAll* section, check that *TCP Port* is set to 1433 (default)
 5. You may need to restart SQL's services (or reboot your system) for the changes to have effect
-6. Depending on your configuration, you may have to check and allow communications on the ports used in Windows Firewall or whichever firewall software you may have
+6. Depending on your configuration, you may have to check and/or allow communications on the ports used in *Windows Firewall* or whichever firewall software you may have
