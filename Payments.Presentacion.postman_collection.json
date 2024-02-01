@@ -1,0 +1,156 @@
+{
+	"info": {
+		"name": "Payments.Presentacion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/Authorization",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "text/plain"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"authorizationType\": 2,\n  \"clientId\": \"<uuid>\",\n  \"clientType\": 2,\n  \"total\": \"<double>\"\n}",
+					"options": {
+						"raw": {
+							"headerFamily": "json",
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/Authorization",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"Authorization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/Authorization/Confirm",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "text/plain"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"<uuid>\"\n}",
+					"options": {
+						"raw": {
+							"headerFamily": "json",
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/Authorization/Confirm",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"Authorization",
+						"Confirm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/Authorization/Approved",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/plain"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/Authorization/Approved",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"Authorization",
+						"Approved"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/Authorization",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/plain"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/Authorization",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"Authorization"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
