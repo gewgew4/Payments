@@ -6,6 +6,6 @@ namespace Payments.Application.Options
     {
         public const string External = "External";
         public string ApiUrl { get; set; } = string.Empty;
-        public JsonSerializerOptions JsonSerializerOptions { get; set; } 
+        public JsonSerializerOptions? JsonSerializerOptions { get; set; } 
     }
 }

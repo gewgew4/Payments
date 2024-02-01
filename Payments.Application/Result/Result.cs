@@ -27,7 +27,7 @@
             {
                 Success = false,
                 Errors = errors,
-                Data = default(T),
+                Data = default,
                 ResultType = resultType
             };
         }

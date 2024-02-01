@@ -7,7 +7,7 @@ namespace Payments.UnitTests.Helpers
 {
     public class Factory
     {
-        private static readonly Random random = new Random();
+        private static readonly Random random = new();
 
         public static AuthorizationDto GetAuthorizationDto()
         {

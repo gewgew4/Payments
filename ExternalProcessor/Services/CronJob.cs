@@ -4,15 +4,9 @@ using Microsoft.Data.SqlClient;
 
 namespace ExternalProcessor.Services
 {
-    public class CronJob : CronJobService
+    public class CronJob(ICronConfiguration<CronJob> cronConfiguration, ILogger<CronJob> logger) : CronJobService(cronConfiguration.CronExpression, cronConfiguration.TimeZoneInfo, cronConfiguration.CronFormat)
     {
-        private readonly ILogger<CronJob> _logger;
-
-        public CronJob(ICronConfiguration<CronJob> cronConfiguration, ILogger<CronJob> logger)
-            : base(cronConfiguration.CronExpression, cronConfiguration.TimeZoneInfo, cronConfiguration.CronFormat)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger<CronJob> _logger = logger;
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
@@ -34,7 +28,7 @@ namespace ExternalProcessor.Services
             return base.DoWork(cancellationToken);
         }
 
-        private void Reverse()
+        private static void Reverse()
         {
             string sql = $@"update Authorizations set
                                 IsConfirmed = 0
@@ -45,10 +39,8 @@ namespace ExternalProcessor.Services
                                 ClientType = 2 and
                                 getutcdate() > dateadd(minute, 5, CreationDate)";
 
-            using (var connection = new SqlConnection($"Server=host.docker.internal,1433;Database=payments;Integrated security=False;User Id=sa;Password=123456;MultipleActiveResultSets=true;TrustServerCertificate=True"))
-            {
-                connection.Execute(sql);
-            }
+            using var connection = new SqlConnection($"Server=host.docker.internal,1433;Database=payments;Integrated security=False;User Id=sa;Password=123456;MultipleActiveResultSets=true;TrustServerCertificate=True");
+            connection.Execute(sql);
         }
     }
 }

@@ -15,26 +15,17 @@ using Authorization = Payments.Domain.Entities.Authorization;
 
 namespace Payments.Application.Services
 {
-    public class AuthorizationService : IAuthorizationService
+    public class AuthorizationService(IOptions<ExternalServiceOptions> options, IHttpClientFactory httpClientFactory, IMapper mapper, IUnitOfWork unitOfWork, ILogger<IAuthorizationService> logger) : IAuthorizationService
     {
-        private readonly ExternalServiceOptions _options;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<IAuthorizationService> _logger;
-
-        public AuthorizationService(IOptions<ExternalServiceOptions> options, IHttpClientFactory httpClientFactory, IMapper mapper, IUnitOfWork unitOfWork, ILogger<IAuthorizationService> logger)
-        {
-            _options = options.Value;
-            _httpClientFactory = httpClientFactory;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-            _logger = logger;
-        }
+        private readonly ExternalServiceOptions _options = options.Value;
+        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
+        private readonly IMapper _mapper = mapper;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly ILogger<IAuthorizationService> _logger = logger;
 
         public async Task<Result<AuthorizationDto>> Authorize(AuthorizationRequestDto request)
         {
-            _logger.LogInformation($"Authorization request: {request}");
+            _logger.LogInformation("Authorization request: {request}", request);
 
             Authorization authorization = _mapper.Map<Authorization>(request);
             authorization.CreationDate = DateTime.UtcNow;
@@ -60,7 +51,7 @@ namespace Payments.Application.Services
 
         public async Task<Result<AuthorizationDto>> Confirm(ConfirmationRequestDto request)
         {
-            _logger.LogInformation($"Confirmation request: {request}");
+            _logger.LogInformation("Confirmation request: {request}", request);
 
             var authorization = await _unitOfWork.AuthorizationRepository.GetById(request.Id);
 
@@ -83,6 +74,11 @@ namespace Payments.Application.Services
             if (!(authorization.IsAuthorized ?? false))
             {
                 return Result<AuthorizationDto>.Fail(ResultType.Unexpected, [$"The authorization {request.Id} is not authorized."]);
+            }
+
+            if (DateTime.UtcNow > authorization.CreationDate.AddMinutes(5))
+            {
+                return Result<AuthorizationDto>.Fail(ResultType.Unexpected, [$"The authorization {request.Id} is too old."]);
             }
             #endregion
 
@@ -149,7 +145,7 @@ namespace Payments.Application.Services
 
             if (!externalResult.IsSuccessStatusCode)
             {
-                _logger.LogError("Post was unsuccesfull", new { HttpCode = externalResult.StatusCode, externalResult.Content });
+                _logger.LogError("Post was unsuccesfull. {info}", new { HttpCode = externalResult.StatusCode, externalResult.Content });
             }
 
             return JsonSerializer.Deserialize<ExternalResponse>(await externalResult.Content.ReadAsStringAsync(), _options.JsonSerializerOptions)!;

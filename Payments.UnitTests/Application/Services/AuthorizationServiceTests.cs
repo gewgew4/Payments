@@ -24,7 +24,7 @@ namespace Payments.UnitTests.Application.Services
         private readonly IOptions<ExternalServiceOptions> _externalServiceOptions;
         private readonly Mock<IHttpClientFactory> _mockedHttpClientFactory;
         private readonly IAuthorizationService _service;
-        private readonly MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfiles(new List<Profile>() { new ApprovedAuthorizationMapper(), new AuthorizationMapper() }));
+        private readonly MapperConfiguration mapperConfiguration = new(cfg => cfg.AddProfiles(new List<Profile>() { new ApprovedAuthorizationMapper(), new AuthorizationMapper() }));
 
         public AuthorizationServiceTests()
         {

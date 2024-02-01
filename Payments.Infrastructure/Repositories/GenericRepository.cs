@@ -5,16 +5,10 @@ using System.Linq.Expressions;
 
 namespace Payments.Infrastructure.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T>
+    public class GenericRepository<T>(PbContext context) : IGenericRepository<T> where T : BaseEntity<T>
     {
-        protected readonly PbContext _context;
-        protected readonly DbSet<T> _dbSet;
-
-        public GenericRepository(PbContext context)
-        {
-            _context = context;
-            _dbSet = context.Set<T>();
-        }
+        protected readonly PbContext _context = context;
+        protected readonly DbSet<T> _dbSet = context.Set<T>();
 
         public async Task<T> GetById(Guid id, bool tracking = true, params string[] includeProperties)
         {
