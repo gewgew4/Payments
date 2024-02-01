@@ -34,8 +34,6 @@ namespace Payments.Presentacion
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseAuthorization();
 
             app.MapControllers();
