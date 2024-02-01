@@ -2,6 +2,11 @@
 
 ## Summary
 This is a PoC repo that follows a given set of specifications for a payment service and an external service.
+- Xunit is used for unit testing
+- Docker is mostly configured and ready to use with relevant commands and configurations (see below)
+- Exceptions are handled with a middleware class
+- Result pattern is used for indicating success and providing data (used also on the exception's middleware)
+- Unit of work and repository patterns are used for the database
 
 ## Specifications
 A payments authorization solution is required for our clients.
@@ -23,6 +28,8 @@ All authorizations should be registered with their status and relevant informati
 Additionally, we should keep another registration including only approved authorizations (necessary for feeding internal reporting). This registry may only be a simple table containing dates, totals and clients. This should be asynchronous so that the authorization process is not interfered with.
 
 Since this is a PoC, we can assume all clients are already registered and authentication is already managed.
+
+> Since the external payments processor is not the aim of this PoC, its architecture is very simplified. CronJobs are used to check every 10 seconds unconfirmed authorization requests. Dapper is used at this project while EF Core is used at the Payments solution
 
 ## Install instructions for Docker
 
@@ -68,3 +75,6 @@ This can be set via the SQL Server 20XX Configuration Manager:
 4. And on *IP Addresses* tab, below at *IPAll* section, check that *TCP Port* is set to 1433 (default)
 5. You may need to restart SQL's services (or reboot your system) for the changes to have effect
 6. Depending on your configuration, you may have to check and/or allow communications on the ports used in *Windows Firewall* or whichever firewall software you may have
+
+Remember to change the connection string (user, password) at *appsettings.json* and running command
+`update database` while on *Payments.Infrastructure* project
