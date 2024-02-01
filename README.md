@@ -29,7 +29,7 @@ Additionally, we should keep another registration including only approved author
 
 Since this is a PoC, we can assume all clients are already registered and authentication is already managed.
 
-> Since the external payments processor is not the aim of this PoC, its architecture is very simplified. CronJobs are used to check every 10 seconds unconfirmed authorization requests. Dapper is used at this project while EF Core is used at the Payments solution
+> Bear in mind that the external payments processor is not the aim of this PoC, so its architecture is quite simplified. CronJobs are used to check every 10 seconds unconfirmed authorization requests. Dapper is used at this project while EF Core is used at the Payments solution
 
 ## Install instructions for Docker
 
@@ -76,5 +76,5 @@ This can be set via the SQL Server 20XX Configuration Manager:
 5. You may need to restart SQL's services (or reboot your system) for the changes to have effect
 6. Depending on your configuration, you may have to check and/or allow communications on the ports used in *Windows Firewall* or whichever firewall software you may have
 
-Remember to change the connection string (user, password) at *appsettings.json* and running command
-`update database` while on *Payments.Infrastructure* project
+Remember to change the connection string (user, password) at *appsettings.json* and running EF Core command
+`update-database` while on *Payments.Infrastructure* project
