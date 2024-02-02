@@ -9,11 +9,11 @@ This is a PoC repo that follows a given set of specifications for a payment serv
 - Unit of work and repository patterns are used for the database
 
 ## Specifications
-A payments authorization solution is required for our clients.
+A payments' authorization solution is required for our clients.
 
 The solution will contain a public API which will be consumed by our clients where we will receive an authorization request and we'll respond according to the response of a third-party payment processor (simulated).
 
-The payment processor will be an independent service that simply will respond that a authorization is approved when the total amount is an integer value and denied when the total has decimals.
+The payment processor will be an independent service that will simply respond that a authorization is approved when the total amount is an integer value and denied when the total has decimals.
 
 Authorizations may be for a *charge*, *return* or *reversal*.
 
@@ -21,7 +21,7 @@ Depending on the client, there may be different authorization models:
 - First: authorization request
 - Second: authorization request followed by a confirmation
 
-For clients on the second model, an action should be performed so that a reversal authorization is generated if it is not confirmed within the first five minutes.
+For clients on the second model, an action should be allowed/performed so that a reversal authorization is generated, if it is not confirmed within the first five minutes.
 
 All authorizations should be registered with their status and relevant information.
 
@@ -33,12 +33,12 @@ Since this is a PoC, we can assume all clients are already registered and authen
 
 ## Install instructions for Docker
 
-1. Go to https://www.docker.com/products/docker-desktop/ and *Download for Windows*
-2. For installing it, simply open the downloaded exe and click on *Ok*
+1. Go to https://www.docker.com/products/docker-desktop/ and look for *Download for Windows*
+2. For installing it, simply open the downloaded *exe* and click on *Ok*
 3. You'll be asked to restart your system, please do it
 4. You may need to accept Docker's license
 5. Leave *Use recommended settings (requires administrator password)*
-6. You may click on *Continue without signing in* and *Skip* when you're asked about you
+6. You may click on *Continue without signing in* and *Skip* when you're asked about yourself
 7. Open a CMD/PowerShell console and use command `wsl --version` and ensure you have at least WSL version 2
 > Otherwise, please, see https://learn.microsoft.com/en-us/windows/wsl/install for more info and instructions
 
@@ -48,20 +48,28 @@ Since this is a PoC, we can assume all clients are already registered and authen
 > This command should build images and run containers in a way the apps can communicate properly
 
 9. You may use Swagger or Postman to call the different endpoints
-> You can import the *Payments.Presentacion.postman_collection.json* file in Postman
+> You can import the *Payments.Presentacion.postman_collection.json* file into Postman
 
-> Ports shouldn't but may change due to availability, you can check in *Docker for desktop* which are the ports that the container uses
+> Ports shouldn't but may change due to availability, you can check in *Docker for desktop* which are the ports that the containers use
 
 ### Notes
-Bear in mind you should rebuild when you make changes to the application
-First, you need to know the service's name, run command
+Bear in mind you should rebuild when you make changes to the application.
+
+First, you need to know the service's name, run command:
+
 `docker compose ps`
+
 Which will show you a list of the services running
+
 In order to build again, run command
-`docker compose ps`
+
+`docker compose up -d --no-deps --build SomeName`
+
 - For example
-`docker compose up -d --no-deps --build payments.presentacion`
-`docker compose up -d --no-deps --build externalprocessor`
+
+`docker compose up -d --no-deps --build payments.presentacion` for the Payments solution
+
+`docker compose up -d --no-deps --build externalprocessor` for the simulated external processor
 
 ## Setting up the app
 We are using a SQL Server database, see https://www.microsoft.com/en-us/sql-server/sql-server-downloads Express or Developer versions for more info
